@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TestingInterface } from "@/components/testing-interface";
+import { TaskList } from "@/components/task-list";
 import { AdminDashboard } from "@/components/admin-dashboard";
 import { Button } from "@/components/ui/button";
 import { MousePointer, Settings } from "lucide-react";
@@ -44,7 +44,7 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      {currentMode === "test" ? <TestingInterface /> : <AdminDashboard />}
+      {currentMode === "test" ? <TaskList /> : <AdminDashboard />}
     </div>
   );
 }

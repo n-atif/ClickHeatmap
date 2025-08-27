@@ -15,7 +15,7 @@ Preferred communication style: Simple, everyday language.
 - **UI Library**: Shadcn/ui components built on Radix UI primitives for accessibility
 - **Styling**: Tailwind CSS with CSS variables for theming and dark mode support
 - **State Management**: TanStack Query for server state management and caching
-- **Routing**: Wouter for lightweight client-side routing
+- **Routing**: Wouter for lightweight client-side routing with individual task URLs
 - **Form Handling**: React Hook Form with Zod validation
 
 ### Backend Architecture
@@ -42,8 +42,12 @@ Preferred communication style: Simple, everyday language.
 
 ### Component Architecture
 - **Design System**: Modular UI components with variant-based styling using class-variance-authority
-- **Testing Interface**: Interactive image clicking with visual feedback and progress tracking
+- **Testing Interface**: 
+  - Task List View: Grid-based display of available tasks with individual access
+  - Individual Task Pages: Single-task testing with direct URL sharing capability
+  - Interactive image clicking with visual feedback and completion tracking
 - **Admin Dashboard**: Analytics dashboard with heatmap visualization and data export capabilities
+- **Task Management**: Full CRUD operations with task creation modal and dropdown menus
 - **Heatmap Visualization**: Canvas-based rendering with gradient overlays for click density
 
 ### Development Workflow

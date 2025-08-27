@@ -74,7 +74,7 @@ export function TaskMenu({ task }: TaskMenuProps) {
   };
 
   const handleCopyUrl = () => {
-    const taskUrl = `${window.location.origin}/?task=${task.id}`;
+    const taskUrl = `${window.location.origin}/task/${task.id}`;
     navigator.clipboard.writeText(taskUrl);
     toast({
       title: "URL Copied",

@@ -84,4 +84,11 @@
   .heatmap-overlay {
     @apply absolute top-0 left-0 pointer-events-none z-[5];
   }
+  
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
 }
