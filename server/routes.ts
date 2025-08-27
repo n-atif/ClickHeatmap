@@ -1,6 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+// import { supabaseStorage as storage } from "./supabase-storage"; // Uncomment after Supabase setup
 import { insertTaskSchema, insertClickSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {

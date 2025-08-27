@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+// import { supabaseStorage } from "./supabase-storage"; // Uncomment after Supabase setup
 
 const app = express();
 app.use(express.json());
@@ -37,6 +38,13 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Initialize Supabase tables (uncomment after Supabase setup)
+  // try {
+  //   await supabaseStorage.initializeTables();
+  // } catch (error) {
+  //   console.error('Failed to initialize Supabase:', error);
+  // }
+
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

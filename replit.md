@@ -26,15 +26,18 @@ Preferred communication style: Simple, everyday language.
 - **Error Handling**: Centralized error middleware with structured error responses
 
 ### Data Storage Solutions
-- **Database**: PostgreSQL with Drizzle ORM for type-safe database operations
-- **Schema Management**: Drizzle Kit for migrations and schema synchronization
-- **Connection**: Neon Database serverless driver for PostgreSQL connectivity
-- **Development Storage**: In-memory storage implementation for development/testing
+- **Database**: Supabase PostgreSQL with direct client integration for real-time capabilities
+- **Primary Storage**: SupabaseStorage class implementing IStorage interface for all data operations
+- **Schema Management**: SQL-based schema with UUID primary keys and foreign key relationships
+- **Connection**: Supabase client with environment variable configuration
+- **Development Storage**: Supabase development database (replaced in-memory storage)
 
 ### Database Schema Design
-- **Tasks Table**: Stores test scenarios with titles, descriptions, image URLs, and active status
-- **Clicks Table**: Records user interactions with x/y coordinates as percentages, timestamps, and session tracking
-- **Validation**: Zod schemas for runtime type checking and API validation
+- **Tasks Table**: UUID primary keys, stores test scenarios with titles, descriptions, image URLs, active status, and creation timestamps
+- **Clicks Table**: UUID primary keys with foreign key references to tasks, records user interactions with x/y coordinates as percentages, timestamps, user agents, and session tracking
+- **Indexes**: Performance optimized with indexes on active status, timestamps, task relationships, and session IDs
+- **Row Level Security**: Enabled with public access policies for development (configurable for production)
+- **Validation**: Zod schemas for runtime type checking and API validation with Supabase data transformation
 
 ### Authentication and Authorization
 - **Current State**: No authentication implemented - open access system
@@ -59,8 +62,8 @@ Preferred communication style: Simple, everyday language.
 ## External Dependencies
 
 ### Database Services
-- **Neon Database**: Serverless PostgreSQL hosting with connection pooling
-- **Drizzle ORM**: Type-safe database toolkit with PostgreSQL dialect support
+- **Supabase**: Backend-as-a-Service with PostgreSQL database, real-time subscriptions, and authentication capabilities
+- **Supabase Client**: Official JavaScript client library for database operations and real-time features
 
 ### UI and Styling
 - **Radix UI**: Headless component primitives for accessibility and functionality
