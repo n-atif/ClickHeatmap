@@ -12,12 +12,13 @@ import {
   Plus, 
   Download, 
   FileText, 
-  Code, 
-  MoreVertical,
+  Code,
   Calendar,
   Maximize2
 } from "lucide-react";
 import { HeatmapViewer } from "./heatmap-viewer";
+import { AddTaskModal } from "./add-task-modal";
+import { TaskMenu } from "./task-menu";
 import type { Task, Click } from "@shared/schema";
 
 interface Stats {
@@ -30,6 +31,7 @@ interface Stats {
 export function AdminDashboard() {
   const [selectedTaskId, setSelectedTaskId] = useState<string>("");
   const [exportFormat, setExportFormat] = useState<"csv" | "json">("csv");
+  const [showAddTaskModal, setShowAddTaskModal] = useState(false);
 
   const { data: tasks = [] } = useQuery<Task[]>({
     queryKey: ["/api/tasks"],
@@ -44,7 +46,15 @@ export function AdminDashboard() {
     enabled: !!selectedTaskId,
   });
 
+  const { data: allClicks = [] } = useQuery<Click[]>({
+    queryKey: ["/api/clicks"],
+  });
+
   const selectedTask = tasks.find(task => task.id === selectedTaskId);
+
+  const getClickCountForTask = (taskId: string) => {
+    return allClicks.filter(click => click.taskId === taskId).length;
+  };
 
   const handleExport = () => {
     if (!selectedTaskId) return;
@@ -141,7 +151,10 @@ export function AdminDashboard() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Active Tasks</CardTitle>
-              <Button data-testid="button-add-task">
+              <Button 
+                onClick={() => setShowAddTaskModal(true)}
+                data-testid="button-add-task"
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 Add Task
               </Button>
@@ -169,7 +182,7 @@ export function AdminDashboard() {
                     <div>
                       <p className="font-medium">{task.title}</p>
                       <p className="text-sm text-muted-foreground">
-                        {selectedTaskClicks.length} clicks collected
+                        {getClickCountForTask(task.id)} clicks collected
                       </p>
                     </div>
                   </div>
@@ -177,9 +190,7 @@ export function AdminDashboard() {
                     <Badge variant={task.isActive ? "default" : "secondary"}>
                       {task.isActive ? "Active" : "Paused"}
                     </Badge>
-                    <Button variant="ghost" size="icon" data-testid={`button-task-menu-${task.id}`}>
-                      <MoreVertical className="w-4 h-4" />
-                    </Button>
+                    <TaskMenu task={task} />
                   </div>
                 </div>
               ))
@@ -284,6 +295,12 @@ export function AdminDashboard() {
           )}
         </CardContent>
       </Card>
+
+      {/* Add Task Modal */}
+      <AddTaskModal 
+        isOpen={showAddTaskModal}
+        onClose={() => setShowAddTaskModal(false)}
+      />
     </div>
   );
 }
